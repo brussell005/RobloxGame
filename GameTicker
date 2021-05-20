@@ -1,0 +1,506 @@
+local vampirePlayer = script.Parent.VampirePlayers
+local priestPlayer = script.Parent.PriestPlayers
+local neutralPlayers = script.Parent.NeutralPlayers
+local ReplicatedStorage = game:GetService('ReplicatedStorage')
+local timeEvent = ReplicatedStorage:WaitForChild('TimeEvent')
+local module = require(game:GetService("ReplicatedStorage").Transitions) --Get the function table
+
+
+
+function Lobby()
+	print("Lobby time")
+	wait(4)
+	local tween2 = module.FadeIn(game:GetService("Lighting").FadeInOut)  --Run the Fade-Out function that returns the tween
+
+	tween2.Completed:Wait() --Wait until the tween is completed
+
+	print("Done fading")
+	wait(0.5)
+
+	local timeLobby = 60
+	local timerText = 'Lobby Time: '
+	while timeLobby > 0 do
+		timeEvent:FireAllClients(timeLobby, timerText)
+		wait(1)
+		timeLobby -= 1
+	end
+	neutralPlayers.Value = table.getn(game.Teams["Neutral"]:GetPlayers())
+	if timeLobby == 0 and neutralPlayers.Value > 1 then
+		timerText = 'Game Starting!'
+		timeEvent:FireAllClients(timeLobby, timerText)
+		wait(1)
+		startGame()
+	else 
+		timerText = 'Not enough victims, waiting for more!'
+		timeEvent:FireAllClients(timeLobby, timerText)
+		wait(3)
+		timeLobby = 30
+		timerText = 'Lobby Time: '
+	end
+end
+
+
+function startGame()
+	local newPriest = nil
+	local newVampire = nil
+	-- Get a table that contains all of the Neutral team players (should be everyone playing)
+	local playerList = game.Teams["Neutral"]:GetPlayers()
+	
+	if newVampire == nil then 
+	-- Choose a random player from the neutral list and assign to vampire
+		newVampire = playerList[math.random(#playerList)]
+	end
+	wait(2)
+	local vampireRank = newVampire.choice:WaitForChild("VampireRank")
+	local vampireChoice = newVampire.leaderstats:WaitForChild("Vampire")
+	local stationDoor = game.Workspace.StationDoor
+	
+	state = statePLAYING
+	--local tween1 = module.FadeOut(game:GetService("Lighting").FadeInOut) --Run the Fade-Out function that returns the tween
+
+	--tween1.Completed:Wait() --Wait until the tween is completed
+
+	wait(6)
+
+	
+	
+		if vampireChoice.Value == "Turned" then
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Turned")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+			print(vampireChoice.Value)
+			
+		end
+		
+		if vampireChoice.Value == "Baron" then
+			print(vampireChoice.Value)
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Baron")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+			print(vampireChoice.Value)
+		end
+	
+		if vampireChoice.Value == "Count" then
+			print(vampireChoice.Value)
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Count")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+			
+		end
+		
+		if vampireChoice.Value == "Dracula" then
+			print(vampireChoice.Value)
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Dracula")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+		end
+	
+		if vampireChoice.Value == "Master" then
+			print(vampireChoice.Value)
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Master")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+		end
+	
+		
+		
+		newVampire.Team = game.Teams.Vampire
+		newVampire:LoadCharacter()
+		newVampire.Character:MoveTo(game.Workspace.VampireSpawn.CFrame.p)
+	
+		if vampireChoice.Value == "Turned" then
+		local turnedTools = game.ServerStorage.VampireTools.TurnedWeapons:GetChildren()
+		newVampire.Character.Humanoid.WalkSpeed = 26
+		newVampire.Character.Humanoid.JumpPower = 75
+		
+		for _,c in pairs(turnedTools) do
+			c:Clone().Parent = newVampire.Backpack
+		end
+		
+		end		
+	
+		if vampireChoice.Value == "Baron" then
+		local baronTools = game.ServerStorage.VampireTools.BaronWeapons:GetChildren()
+		newVampire.Character.Humanoid.WalkSpeed = 28
+		newVampire.Character.Humanoid.JumpPower = 100
+
+		for _,c in pairs(baronTools) do
+			c:Clone().Parent = newVampire.Backpack
+		end
+
+		end		
+	
+		if vampireChoice.Value == "Count" then
+		local countTools = game.ServerStorage.VampireTools.CountWeapons:GetChildren()
+		newVampire.Character.Humanoid.WalkSpeed = 30
+		newVampire.Character.Humanoid.JumpPower = 110
+
+		for _,c in pairs(countTools) do
+			c:Clone().Parent = newVampire.Backpack
+		end
+
+		end		
+	
+		if vampireChoice.Value == "Dracula" then
+		local draculaTools = game.ServerStorage.VampireTools.DraculaWeapons:GetChildren()
+		newVampire.Character.Humanoid.WalkSpeed = 32
+		newVampire.Character.Humanoid.JumpPower = 120
+
+		for _,c in pairs(draculaTools) do
+			c:Clone().Parent = newVampire.Backpack
+		end
+
+		end	
+	
+		if vampireChoice.Value == "Master" then
+		local masterTools = game.ServerStorage.VampireTools.MasterWeapons:GetChildren()
+		newVampire.Character.Humanoid.WalkSpeed = 34
+		newVampire.Character.Humanoid.JumpPower = 140
+
+		for _,c in pairs(masterTools) do
+			c:Clone().Parent = newVampire.Backpack
+		end
+
+		end	
+	
+	
+		wait(2)
+		-- Get a table that contains remaining Neutral team players
+		local playerList2 = game.Teams["Neutral"]:GetPlayers()
+	--Choose a random player from playerList2 to be the priest
+		if newPriest == nil then 
+		newPriest = playerList2[math.random(#playerList2)]
+		end
+		--Take the newPriest and place on priest team and move to spawn location
+		game.StarterPlayer.StarterCharacter:Destroy()
+
+		local priestRank = newPriest.choice:WaitForChild("PriestRank")
+		local priestChoice = newPriest.leaderstats:WaitForChild("Priest")
+	
+	
+		if priestChoice.Value == "Friar" then
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Friar")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+			print(priestChoice.Value)
+		end
+	
+
+		if priestChoice.Value == "Priest" then
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Priest")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+			print(priestChoice.Value)
+		end
+	
+		if priestChoice.Value == "Bishop" then
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Bishop")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+			print(priestChoice.Value)
+		end
+	
+		if priestChoice.Value == "ArchBishop" then
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("ArchBishop")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+			print(priestChoice.Value)
+		end
+	
+		if priestChoice.Value == "Cardinal" then
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Cardinal")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+			print(priestChoice.Value)
+		end
+	
+		
+		newPriest.Team = game.Teams.Priest
+		newPriest:LoadCharacter()
+		newPriest.Character:MoveTo(game.Workspace.PriestSpawn.CFrame.p)
+	
+		if priestChoice.Value == "Friar" then
+		local priestTools = game.ServerStorage.PriestTools.FriarWeapons:GetChildren()
+		newPriest.Character.Humanoid.WalkSpeed = 24
+		
+
+		for _,c in pairs(priestTools) do
+			c:Clone().Parent = newPriest.Backpack
+		end
+		
+		end
+		
+		if priestChoice.Value == "Priest" then
+			local priestTools = game.ServerStorage.PriestTools.PriestWeapons:GetChildren()
+			newPriest.Character.Humanoid.WalkSpeed = 26
+		
+
+		for _,c in pairs(priestTools) do
+				c:Clone().Parent = newPriest.Backpack
+		end
+
+		end	
+	
+	if priestChoice.Value == "Bishop" then
+   		local priestTools = game.ServerStorage.PriestTools.BishopWeapons:GetChildren()
+		newPriest.Character.Humanoid.WalkSpeed = 28
+
+
+		for _,c in pairs(priestTools) do
+			c:Clone().Parent = newPriest.Backpack
+		end
+
+	end	
+	
+	if priestChoice.Value == "ArchBishop" then
+	local priestTools = game.ServerStorage.PriestTools.ArchBishopWeapons:GetChildren()
+	newPriest.Character.Humanoid.WalkSpeed = 30
+
+
+	for _,c in pairs(priestTools) do
+		c:Clone().Parent = newPriest.Backpack
+	end
+
+	end	
+	
+	if priestChoice.Value == "Cardinal" then
+	local priestTools = game.ServerStorage.PriestTools.CardinalWeapons:GetChildren()
+	newPriest.Character.Humanoid.WalkSpeed = 35
+
+
+	for _,c in pairs(priestTools) do
+	c:Clone().Parent = newPriest.Backpack
+	end
+	end
+	game.StarterPlayer.StarterCharacter:Destroy()
+	
+	wait(2)
+		
+		--Assign the rest of the players to the guest team
+	for i, player in ipairs(game.Teams["Neutral"]:GetPlayers()) do
+		player.Backpack:ClearAllChildren()
+		player.Team = game.Teams.Guests
+		player.Character:MoveTo(game.Workspace.GuestsSpawn.CFrame.p)
+		end
+	print("Game has started!")
+	stationDoor.Transparency = 1.0
+	stationDoor.CanCollide = false
+	--local tween2 = module.FadeIn(game:GetService("Lighting").FadeInOut)  --Run the Fade-Out function that returns the tween
+
+	--tween2.Completed:Wait() --Wait until the tween is completed
+
+	--print("Done fading")
+	wait(0.5)
+	
+	
+end
+
+function Playing()
+	local timeGame = 300
+	local timerText = "Time Remaining: "
+	print("Playing")
+
+	while timeGame > 0 and state == statePLAYING do
+		timeEvent:FireAllClients(timeGame, timerText)
+		wait(1)
+		timeGame -= 1
+	end
+	if timeGame == 0 then
+		local timerText = "GAME OVER"
+		timeEvent:FireAllClients(timeGame, timerText)
+		state = stateROUNDEND
+	end
+	
+end
+
+function roundEnd()
+	local stationDoor = game.Workspace.StationDoor
+	local playerList = game.Teams["Guests"]:GetPlayers()
+	local playerCheck = playerList[1]
+	local remainingGuests = #playerList
+	local priestTeam = game.Teams["Priest"]:GetPlayers()
+	local priest = priestTeam[1]
+	print(priestTeam)
+	print(priest)
+	if priest ~= nil then
+		local pStats = priest:WaitForChild("leaderstats")
+		local pMoney = pStats:FindFirstChild("Ducats")
+		pMoney.Value = pMoney.Value + remainingGuests
+	
+	else
+		
+	end
+	if playerCheck ~= nil then
+		for i, player in ipairs(game.Teams["Guests"]:GetPlayers()) do
+			local rStats = player:WaitForChild("leaderstats")
+			local rMoney = rStats:FindFirstChild("Ducats")
+			rMoney.Value = rMoney.Value + 1
+		end
+	else
+		
+	end
+	
+		
+	print("Round Ended")
+	stationDoor.Transparency = 0
+	stationDoor.CanCollide = true
+	wait()
+	if game.StarterPlayer:FindFirstChild("StarterCharacter") then
+		game.StarterPlayer.StarterCharacter:Destroy()
+	end
+	wait(3)
+	for i, player in pairs(game.Players:GetPlayers()) do
+		player.Team = game.Teams.Neutral
+		player:LoadCharacter()
+		player.Character:MoveTo(game.Workspace.NeutralSpawn.CFrame.p)
+	end
+	state = stateLOBBY
+	
+end
+
+function checkGuests()
+	
+	local remainingGuests = game.Teams:WaitForChild("Guests"):GetPlayers()
+	print(remainingGuests)
+	local lastGuest = remainingGuests[1]
+	if lastGuest == nil then
+		
+		local tween1 = module.FadeOut(game:GetService("Lighting").FadeInOut) --Run the Fade-Out function that returns the tween
+
+		tween1.Completed:Wait() --Wait until the tween is completed
+
+		wait(6)
+		roundEnd()
+	end
+	
+end
+game:GetService('Players').PlayerAdded:Connect(function(player)
+	player.CharacterAdded:Connect(function(character)
+		character:WaitForChild("Humanoid").Died:Connect(function()
+			
+			print(player.Name .. " has died!")
+			
+			local vampireTeam = game.Teams["Vampire"]:GetPlayers()
+			local currentVampire = vampireTeam[1]
+			local priestTeam = game.Teams["Priest"]:GetPlayers()
+			local currentPriest = priestTeam[1]
+			local remainingGuests = game.Teams:WaitForChild("Guests"):GetPlayers()
+			local lastGuest = remainingGuests[1]
+			
+			
+			if player.Name == currentVampire.Name then
+				print("The Vampire has been Killed!")
+				roundEnd()
+			end
+			
+			
+			if player.Team == game.Teams.Priest then 
+				print("The Priest has Died!")
+				
+				if game.StarterPlayer:FindFirstChild("StarterPlayer") ~= nil then
+					game.StarterPlayer.StarterCharacter:Destroy()
+				end
+
+
+
+				local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Turned")
+				local turnedCloneCopy = turnedClone:Clone()
+				turnedCloneCopy.Name = "StarterCharacter"
+				turnedCloneCopy.Parent = game.StarterPlayer
+				player.Team = game.Teams.Turned
+				wait(3)
+				player:LoadCharacter()
+				player.Character:MoveTo(game.Workspace.TurnedSpawn.CFrame.p)
+				checkGuests()
+				
+				wait(10)
+				local tools = game.ServerStorage.VampireTools.TurnedWeapons:GetChildren()
+				for _,c in pairs(tools) do
+					c:Clone().Parent = player.Backpack
+				end
+
+			end
+			
+			if player.Team == game.Teams.Guests then
+				print("A guest died!")
+				print(remainingGuests)
+				
+				if game.StarterPlayer:FindFirstChild("StarterPlayer") ~= nil then
+					game.StarterPlayer.StarterCharacter:Destroy()
+				end
+				
+				
+				
+				local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Turned")
+				local turnedCloneCopy = turnedClone:Clone()
+				turnedCloneCopy.Name = "StarterCharacter"
+				turnedCloneCopy.Parent = game.StarterPlayer
+				
+				player.Team = game.Teams.Turned
+				wait(3)
+				player:LoadCharacter()
+				player.Character:MoveTo(game.Workspace.TurnedSpawn.CFrame.p)
+				wait(2)
+				checkGuests()
+				
+				wait(10)
+				local tools = game.ServerStorage.VampireTools.TurnedWeapons:GetChildren()
+				for _,c in pairs(tools) do
+					c:Clone().Parent = player.Backpack
+				end
+				
+			end
+			
+		
+			
+		end)
+	end)
+end)
+
+local function moreGuests(player)
+	player.CharacterAdded:Wait()
+	wait()
+	if state == statePLAYING then
+		
+		for i, player in ipairs(game.Teams["Neutral"]:GetPlayers()) do
+			player.Backpack:ClearAllChildren()
+			player.Team = game.Teams.Guests
+			player.Character:MoveTo(game.Workspace.GuestsSpawn.CFrame.p)
+			end
+	end
+end
+
+game.Players.PlayerAdded:Connect(moreGuests)
+
+
+
+while (true) do
+	wait(1)
+	
+	if(state == stateLOBBY) then
+		Lobby()
+	end
+	
+	if(state == statePLAYING) then
+		Playing()
+	end
+	
+	if(state == stateROUNDEND) then
+		roundEnd()
+	end
+	
+end
+
+
+
+

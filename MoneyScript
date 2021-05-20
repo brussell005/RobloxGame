@@ -1,0 +1,180 @@
+local DataStoreService = game:GetService("DataStoreService")
+
+local myDataStore = DataStoreService:GetDataStore("myDataStore")
+
+game.Players.PlayerAdded:Connect(function(player)
+	
+	local leaderstats = Instance.new("Folder")
+	leaderstats.Name = "leaderstats"
+	leaderstats.Parent = player
+	
+	
+	local ducats = Instance.new("IntValue")
+	ducats.Name = "Ducats"
+	ducats.Parent = leaderstats
+	
+	local choice = Instance.new("Folder")
+	choice.Name = "choice"
+	choice.Parent = player
+	
+	local priestRank= Instance.new("StringValue")
+	priestRank.Name = "PriestRank"
+	priestRank.Parent = choice
+
+	
+	local vampireRank = Instance.new("StringValue")
+	vampireRank.Name = "VampireRank"
+	vampireRank.Parent = choice
+	
+	
+	local vChoice = Instance.new("StringValue")
+	vChoice.Name = "Vampire"
+	vChoice.Parent = leaderstats
+	
+	local pChoice = Instance.new("StringValue")
+	pChoice.Name = "Priest"
+	pChoice.Parent = leaderstats
+	print(pChoice.Value)
+	
+	
+
+	
+
+	
+	
+
+	
+	local data 
+	local rank
+	local rank2
+	local choice
+	local choice2
+	
+	local success, errormessage = pcall(function()
+		data = myDataStore:GetAsync(player.UserId.."-ducats")
+		rank = myDataStore:GetAsync(player.UserId.."-rank")
+		rank2 = myDataStore:GetAsync(player.UserId.."-rank2")
+		choice = myDataStore:GetAsync(player.UserId.."-choice")
+		choice2 = myDataStore:GetAsync(player.UserId.."-choice2")
+	end)
+	
+	
+	if success then
+		ducats.Value = data
+		vampireRank.Value = rank
+		priestRank.Value = rank2
+		vChoice.Value = choice
+		
+		print(pChoice.value)
+		pChoice.Value = choice2
+		
+	else 
+		print("There was an error while getting data")
+		warn(errormessage)
+	end
+	
+	if ducats.Value == 0 then
+		ducats.Value = ducats.Value + 1
+	end
+	
+	if vampireRank.Value == "" then
+		vampireRank.Value = "Turned"
+	end
+	
+	if priestRank.Value == "" then
+		priestRank.Value = "Friar"
+	end
+	if player.Name == "CaptainBahbo" then 
+	vampireRank.Value = "Master"
+	vChoice.Value = "Master"
+	priestRank.Value = "Cardinal"
+	pChoice.Value = "Cardinal"
+	end
+
+
+	if player.Name == "Sillyolegoblin" then 
+		vampireRank.Value = "Master"
+		vChoice.Value = "Master"
+		priestRank.Value = "Cardinal"
+		pChoice.Value = "Cardinal"
+	end
+
+
+	if player.Name == "Thorhulksmashy6" then 
+		vampireRank.Value = "Master"
+		vChoice.Value = "Master"
+		priestRank.Value = "Cardinal"
+		pChoice.Value = "Cardinal"
+	end
+	
+	if player.Name == "Player3" then
+		priestRank.Value = "Cardinal"
+		pChoice.Value = "Cardinal"
+		vampireRank.Value = "Master"
+		vChoice.Value = "Master"
+	end
+	
+	if player.Name == "Player4" then
+		priestRank.Value = "Cardinal"
+		pChoice.Value = "Cardinal"
+		vampireRank.Value = "Master"
+		vChoice.Value = "Master"
+	end
+	
+	if player.Name == "Player2" then
+		priestRank.Value = "Cardinal"
+		pChoice.Value = "Cardinal"
+		vampireRank.Value = "Master"
+		vChoice.Value = "Master"
+	end
+	
+	if player.Name == "Player1" then
+		priestRank.Value = "Cardinal"
+		pChoice.Value = "Cardinal"
+		vampireRank.Value = "Master"
+		vChoice.Value = "Master"
+	end
+	
+	
+	
+	
+	
+--Vampire Selection
+	
+	if vChoice.Value == "" then
+		vChoice.Value = "Turned"
+	end
+	
+	if pChoice.Value == "" then
+		pChoice.Value = "Friar"
+	end
+	
+	
+end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+	
+	local success, errormessage = pcall(function()
+		myDataStore:SetAsync(player.UserId.."-ducats",player.leaderstats.Ducats.Value)
+		myDataStore:SetAsync(player.UserId.."-rank",player.choice.VampireRank.Value)
+		myDataStore:SetAsync(player.UserId.."-rank2",player.choice.PriestRank.Value)
+		myDataStore:SetAsync(player.UserId.."-choice",player.leaderstats.Vampire.Value)
+		myDataStore:SetAsync(player.UserId.."-choice2",player.leaderstats.Priest.Value)
+	end)
+	if success then
+		print("Data successfully saved!")
+	else
+		print("There was an error")
+		warn(errormessage)
+	end
+end)
+
+game:BindToClose(function()
+	for i, player in pairs (game.Players:GetPlayers()) do
+		if player then
+			player:Kick("This game is shutting down")
+		end
+	end
+	
+	wait(5)
+end)

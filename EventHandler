@@ -1,0 +1,267 @@
+game.ReplicatedStorage.RemoteEventVampireTurned.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("VampireRank") then
+		local vampireRank = player.choice:WaitForChild("VampireRank")
+		local vampireChoice = player.leaderstats:WaitForChild("Vampire")
+		
+		if vampireRank.Value == "Turned" or "Baron" or "Count" or "Dracula" or "Master" then
+			vampireChoice.Value = "Turned"
+			print(vampireChoice.Value)
+			print(vampireRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Turned")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.VampireSpawn.CFrame.p)
+		
+			
+			player.Character.Humanoid.WalkSpeed = 22
+			player.Character.Humanoid.JumpPower = 75
+			
+			local turnedTools = game.ServerStorage.VampireTools.TurnedWeapons:GetChildren()
+			for _,c in pairs(turnedTools) do
+				c:Clone().Parent = player.Backpack
+			end
+		end
+		
+	
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventVampireBaron.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("VampireRank") then
+		local vampireRank = player.choice:WaitForChild("VampireRank")
+		local vampireChoice = player.leaderstats:WaitForChild("Vampire")
+
+		if vampireRank.Value == "Baron" or "Count" or "Dracula" or "Master" then
+			vampireChoice.Value = "Baron"
+			print(vampireChoice.Value)
+			print(vampireRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Baron")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+	
+			wait(7)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.VampireSpawn.CFrame.p)
+			
+			player.Character.Humanoid.WalkSpeed = 22
+			player.Character.Humanoid.JumpPower = 75
+			
+			print("Loading Tools")
+			local turnedTools = game.ServerStorage.VampireTools.BaronWeapons:GetChildren()
+			for _,c in pairs(turnedTools) do
+				c:Clone().Parent = player.Backpack
+			end
+			print("Loaded Tools")
+			
+		
+			
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventVampireCount.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("VampireRank") then
+		local vampireRank = player.choice:WaitForChild("VampireRank")
+		local vampireChoice = player.leaderstats:WaitForChild("Vampire")
+
+		if vampireRank.Value == "Count" or "Dracula" or "Master" then
+			vampireChoice.Value = "Count"
+			print(vampireChoice.Value)
+			print(vampireRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Count")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.VampireSpawn.CFrame.p)
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventVampireDracula.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("VampireRank") then
+		local vampireRank = player.choice:WaitForChild("VampireRank")
+		local vampireChoice = player.leaderstats:WaitForChild("Vampire")
+
+		if vampireRank.Value == "Dracula" or "Master" then
+			vampireChoice.Value = "Dracula"
+			print(vampireChoice.Value)
+			print(vampireRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Dracula")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.VampireSpawn.CFrame.p)
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventVampireMaster.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("VampireRank") then
+		local vampireRank = player.choice:WaitForChild("VampireRank")
+		local vampireChoice = player.leaderstats:WaitForChild("Vampire")
+
+		if vampireRank.Value == "Master" then
+			vampireChoice.Value = "Master"
+			print(vampireChoice.Value)
+			print(vampireRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local turnedClone = game.ServerStorage.VampireSkins:WaitForChild("Master")
+			local turnedCloneCopy = turnedClone:Clone()
+			turnedCloneCopy.Name = "StarterCharacter"
+			turnedCloneCopy.Parent = game.StarterPlayer
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.VampireSpawn.CFrame.p)
+		end
+	end
+end)
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+
+
+game.ReplicatedStorage.RemoteEventPriestFriar.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("PriestRank") then
+		local priestRank = player.choice:WaitForChild("PriestRank")
+		local priestChoice = player.leaderstats:WaitForChild("Priest")
+
+		if priestRank.Value == "Friar" or "Priest" or "Bishop" or "ArchBishop" or "Cardinal" then
+			priestChoice.Value = "Friar"
+			print(priestChoice.Value)
+			print(priestRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Friar")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.PriestSpawn.CFrame.p)
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventPriestPriest.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("PriestRank") then
+		local priestRank = player.choice:WaitForChild("PriestRank")
+		local priestChoice = player.leaderstats:WaitForChild("Priest")
+
+		if priestRank.Value == "Priest" or "Bishop" or "ArchBishop" or "Cardinal" then
+			priestChoice.Value = "Priest"
+			print(priestChoice.Value)
+			print(priestRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Priest")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.PriestSpawn.CFrame.p)
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventPriestBishop.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("PriestRank") then
+		local priestRank = player.choice:WaitForChild("PriestRank")
+		local priestChoice = player.leaderstats:WaitForChild("Priest")
+
+		if priestRank.Value == "Bishop" or "ArchBishop" or "Cardinal" then
+			priestChoice.Value = "Bishop"
+			print(priestChoice.Value)
+			print(priestRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Bishop")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.PriestSpawn.CFrame.p)
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventPriestArchBishop.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("PriestRank") then
+		
+		local priestRank = player.choice:WaitForChild("PriestRank")
+		local priestChoice = player.leaderstats:WaitForChild("Priest")
+		
+		if priestRank.Value == "ArchBishop" or "Cardinal" then
+			priestChoice.Value = "ArchBishop"
+			print(priestChoice.Value)
+			print(priestRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("ArchBishop")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.PriestSpawn.CFrame.p)
+		end
+	end
+end)
+
+game.ReplicatedStorage.RemoteEventPriestCardinal.OnServerEvent:Connect(function(player)
+	if player.choice:FindFirstChild("PriestRank") then
+		local priestRank = player.choice:WaitForChild("PriestRank")
+		local priestChoice = player.leaderstats:WaitForChild("Priest")
+
+		if priestRank.Value == "Cardinal" then
+			priestChoice.Value = "Cardinal"
+			print(priestChoice.Value)
+			print(priestRank.Value)
+			game.StarterPlayer.StarterCharacter:Destroy()
+			local priestClone = game.ServerStorage.PriestSkins:WaitForChild("Cardinal")
+			local priestCloneCopy = priestClone:Clone()
+			priestCloneCopy.Name = "StarterCharacter"
+			priestCloneCopy.Parent = game.StarterPlayer
+
+			wait(3)
+			player:LoadCharacter()
+			player.Character:MoveTo(game.Workspace.PriestSpawn.CFrame.p)
+		end
+	end
+end)
+
+--test give nature potion to player
+game.ReplicatedStorage.RemoteEventNaturePotion.OnServerEvent:Connect(function(player)
+	local storage = game:GetService("ServerStorage")
+	local cloneables = storage:WaitForChild("Cloneables")
+	local potions = cloneables:WaitForChild("Potions")
+	local naturePotion = potions:WaitForChild("Nature")
+	
+	
+	local backpack = player:WaitForChild("Backpack")
+	local character = player:WaitForChild("Character")
+	local model = naturePotion:Clone()
+	
+	
+	model.Parent = backpack
+	print("potion given")
+end)

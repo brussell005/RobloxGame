@@ -1,0 +1,64 @@
+local Market = game:GetService('MarketplaceService')
+
+
+local gamePassId = 14013700
+
+--Change player VampireRank to purchased product
+local function changeVampireRank(player)
+
+	wait()
+	if player.choice:FindFirstChild("VampireRank") then
+		local vampireRank = player.choice:WaitForChild("VampireRank")
+
+		if vampireRank.Value == "Count" then
+			vampireRank.Value = "Dracula"
+			print("Yay you bought Dracula!!!!!!!!!!")
+			print("Your new vampire rank is "..vampireRank.Value)
+			print("Hi this is the changeRank function for purchasing with robux!")
+			print(vampireRank.Value)
+		end
+
+
+	end
+end
+
+local function newPlayer(player)
+
+	local hasPass = false
+
+	local success, message = pcall(function()
+		hasPass = Market:UserOwnsGamePassAsync(player.UserId, gamePassId)
+	end)
+
+	--If there is an error trying to get the marketplace it will end it early with "return"
+	if not success then
+		warn(message)
+		return
+	end
+
+	--if player owns the pass 
+	if hasPass then
+		changeVampireRank(player)
+	end
+
+
+
+
+end
+
+game.Players.PlayerAdded:Connect(newPlayer)
+
+--Function to change the vampireRank immediately on purchase
+
+local function purchaseComplete(player, purchaseId, purchaseSuccess)
+	local vampireRank = player.choice:WaitForChild("VampireRank")
+
+	if purchaseSuccess == true and purchaseId == gamePassId then
+		changeVampireRank(player)
+		print ("You used Robux to buy Dracula! Thank You!")
+		print (vampireRank.Value)
+	end
+
+end
+
+Market.PromptGamePassPurchaseFinished:Connect(purchaseComplete)
